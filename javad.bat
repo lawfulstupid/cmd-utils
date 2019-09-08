@@ -1,0 +1,1 @@
+java -jar C:\Users\Alex\bin\procyon-decompiler-0.5.30.jar %*
