@@ -26,6 +26,7 @@ setlocal DisableDelayedExpansion
 
 doskey x=exit
 doskey q=exit
+doskey :q=exit
 doskey home=cd %USERPROFILE%
 doskey edit="C:\Program Files\Notepad++\notepad++.exe" $*
 doskey ps=powershell $*
