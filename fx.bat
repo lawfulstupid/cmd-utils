@@ -24,7 +24,7 @@ set c_magenta=95
 set c_pink=91
 set c_RGB=38
 
-goto parse
+goto parseArgs
 
 :help
 @REM echo FX [text] [/R] [/U] [/I] [/FG color] [/BG color]
@@ -38,17 +38,26 @@ echo    /BG	Sets background color (see below).
 echo.
 echo Colors:
 echo    default	Uses default command prompt color.
-@REM echo    auto		Picks between black or white based on other color.
-echo    (r,g,b)	Pick color by RGB value, range from 0 to 255.
-for %%C in (black gray ) do (
-	call %~0 %%C /bg:%%C /fg=white
+@REM echo    auto		Picks between black or white based on other color. (WIP)
+@REM echo    (r,g,b)	Pick color by RGB value, range from 0 to 255. (WIP)
+for %%C in (white lightgray) do (
+	call putstr "   "
+	call %~0 %%C /bg:%%C /fg:black
+	echo.
 )
-for %%C in (lightgray white red orange yellow lime green turquoise cyan lightblue blue purple magenta pink) do (
-	call %~0 %%C /bg:%%C /fg=black
+for %%C in (gray black blue) do (
+	call putstr "   "
+	call %~0 %%C /bg:%%C /fg:white
+	echo.
+)
+for %%C in (lightblue cyan turquoise green lime yellow orange red pink magenta purple) do (
+	call putstr "   "
+	call %~0 %%C /bg:%%C /fg:black
+	echo.
 )
 goto:eof
 
-:parse
+:parseArgs
 set reset=
 set text=
 set fg=
@@ -56,14 +65,16 @@ set bg=
 set underline=
 set invert=
 
-:parseLoop
 for %%A in (%*) do (
 	set "arg=%%~A"
 
 	if not "!arg:~0,1!"=="/" (
+		@REM If not flag
 		if defined text goto argError %%A
-		set "text=%%A"
-	) else if /I "%%~A"=="/?" (
+		set "text=%%~A"
+	) else if /I "!arg!"=="/?" (
+		goto help
+	) else if /I "!arg!"=="/H" (
 		goto help
 	) else if /I "!arg!"=="/R" (
 		set reset=%fx_reset%
@@ -87,7 +98,7 @@ for %%V in (reset fg bg underline invert) do (
 		call putstr [!%%V!m
 	)
 )
-call putstr %text%
+call putstr "%text%"
 call putstr [0m
 goto:eof
 
