@@ -28,13 +28,14 @@ goto parseArgs
 
 :help
 @REM echo FX [text] [/R] [/U] [/I] [/FG color] [/BG color]
-echo FX [text] [/R] [/FG:color] [/BG:color] [/U] [/I]
+echo FX [text] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]
 echo Outputs text with given attributes or sets attributes globally if no text given.
 echo    /R	Removes all text effects and sets default colors.
 echo    /U	Underlining.
 echo    /I	Inverted colors.
 echo    /FG	Sets foreground color (see below).
 echo    /BG	Sets background color (see below).
+echo	/N	End text with new line.
 echo.
 echo Colors:
 echo    default	Uses default command prompt color.
@@ -64,6 +65,7 @@ set fg=
 set bg=
 set underline=
 set invert=
+set newline=
 
 for %%A in (%*) do (
 	set "arg=%%~A"
@@ -88,6 +90,8 @@ for %%A in (%*) do (
 	) else if /I "!arg:~,3!"=="/BG" (
 		call:parseColor bg !arg:~4!
 		if not defined bg goto argError %%A
+	) else if /I "!arg!"=="/N" (
+		set newline=1
 	) else (
 		goto argError %%A
 	)
@@ -100,6 +104,7 @@ for %%V in (reset fg bg underline invert) do (
 )
 call putstr "%text%"
 call putstr [0m
+if defined newline echo;
 goto:eof
 
 :parseColor
