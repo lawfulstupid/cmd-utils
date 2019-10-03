@@ -15,7 +15,7 @@ set c_orange=33
 set c_yellow=93
 set c_lime=92
 set c_green=32
-set c_turquoise=96
+set c_teal=96
 set c_cyan=36
 set c_lightblue=94
 set c_blue=34
@@ -51,7 +51,7 @@ for %%C in (gray black blue) do (
 	call %~0 %%C /bg:%%C /fg:white
 	echo.
 )
-for %%C in (lightblue cyan turquoise green lime yellow orange red pink magenta purple) do (
+for %%C in (lightblue cyan teal green lime yellow orange red pink magenta purple) do (
 	call putstr "   "
 	call %~0 %%C /bg:%%C /fg:black
 	echo.
@@ -120,7 +120,7 @@ if "%arg2:~0,1%"=="(" (
 	@REM if "%~1"=="bg" set other=fg
 @REM )
 
-for %%P in (default black gray lightgray white red orange yellow lime green turquoise cyan lightblue blue purple magenta pink) do (
+for %%P in (default black gray lightgray white red orange yellow lime green teal cyan lightblue blue purple magenta pink) do (
 	if /I "%~2"=="%%P" set %~1=!c_%%P!
 )
 if defined %~1 for /f %%N in ('echo !%~1!') do set %~1=%%N
