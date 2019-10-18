@@ -1,4 +1,10 @@
 @echo off
+
+@REM To use exclamation marks, quote the string.
+@REM No idea why that's necessary.
+set allArgs=%*
+set allArgs=%allArgs:!=^^^!%
+
 setlocal EnableDelayedExpansion
 
 set fx_reset=0
@@ -67,9 +73,8 @@ set underline=
 set invert=
 set newline=
 
-for %%A in (%*) do (
+for %%A in (%allArgs%) do (
 	set "arg=%%~A"
-
 	if not "!arg:~0,1!"=="/" (
 		@REM If not flag
 		if defined text goto argError %%A
@@ -102,7 +107,8 @@ for %%V in (reset fg bg underline invert) do (
 		call putstr [!%%V!m
 	)
 )
-call putstr "%text%"
+@REM Can't call putstr because of exclamation marks
+@echo | set /p dummy=7!text!
 call putstr [0m
 if defined newline echo;
 goto:eof
