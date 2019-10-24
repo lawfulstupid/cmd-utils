@@ -99,7 +99,7 @@ for %%V in (reset fg bg underline invert) do (
 )
 @REM Can't call putstr because of exclamation marks
 @echo | set /p dummy=7!text!
-call putstr [0m
+if defined text call putstr [0m
 if defined newline echo;
 goto:eof
 
