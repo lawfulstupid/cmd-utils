@@ -45,22 +45,12 @@ echo	/N	End text with new line.
 echo.
 echo Colors:
 echo    default	Uses default command prompt color.
-@REM echo    auto		Picks between black or white based on other color. (WIP)
-@REM echo    (r,g,b)	Pick color by RGB value, range from 0 to 255. (WIP)
-for %%C in (white lightgray) do (
+echo    auto		Picks between black or white based on other color.
+echo    (r,g,b)	Pick color by RGB value, range from 0 to 255. (WIP)
+
+for %%C in (white lightgray gray black blue lightblue cyan teal green lime yellow orange red pink magenta purple) do (
 	call putstr "   "
-	call %~0 %%C /bg:%%C /fg:black
-	echo.
-)
-for %%C in (gray black blue) do (
-	call putstr "   "
-	call %~0 %%C /bg:%%C /fg:white
-	echo.
-)
-for %%C in (lightblue cyan teal green lime yellow orange red pink magenta purple) do (
-	call putstr "   "
-	call %~0 %%C /bg:%%C /fg:black
-	echo.
+	call %0 %%C /bg:%%C /fg:auto /n
 )
 goto:eof
 
@@ -113,21 +103,27 @@ call putstr [0m
 if defined newline echo;
 goto:eof
 
+@REM :parseColor (FG | BG) COLOR
 :parseColor
-set arg2=%~2
-if "%arg2:~0,1%"=="(" (
+set col=%~2
+if "%col:~0,1%"=="(" (
 	call:parseRGB %~1 %~2
 	goto:eof
 )
 
-@REM TODO: Handle 'auto'
-@REM if "%arg2%"=="auto" (
-	@REM if "%~1"=="fg" set other=bg
-	@REM if "%~1"=="bg" set other=fg
-@REM )
+@REM 'auto'
+if "%col%"=="auto" (
+	if "%~1"=="fg" set /a other=%bg%-10
+	if "%~1"=="bg" set other=%fg%
+	set %~1=%c_black%
+	for %%C in (gray black blue purple red pink magenta) do (
+		if /I "!other!"=="!c_%%C!" set %~1=%c_white%
+	)
+	goto:eof
+)
 
 for %%P in (default black gray lightgray white red orange yellow lime green teal cyan lightblue blue purple magenta pink) do (
-	if /I "%~2"=="%%P" set %~1=!c_%%P!
+	if /I "%col%"=="%%P" set %~1=!c_%%P!
 )
 if defined %~1 for /f %%N in ('echo !%~1!') do set %~1=%%N
 if "%~1"=="bg" if defined bg set /a bg=!bg!+10
