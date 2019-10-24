@@ -106,19 +106,14 @@ goto:eof
 @REM :parseColor (FG | BG) COLOR
 :parseColor
 set col=%~2
-if "%col:~0,1%"=="(" (
-	call:parseRGB %~1 %~2
+
+if "%col%"=="auto" (
+	call:autoColor %~1
 	goto:eof
 )
 
-@REM 'auto'
-if "%col%"=="auto" (
-	if "%~1"=="fg" set /a other=%bg%-10
-	if "%~1"=="bg" set other=%fg%
-	set %~1=%c_black%
-	for %%C in (gray black blue purple red pink magenta) do (
-		if /I "!other!"=="!c_%%C!" set %~1=%c_white%
-	)
+if "%col:~0,1%"=="(" (
+	call:parseRGB %~1 %~2
 	goto:eof
 )
 
@@ -127,6 +122,15 @@ for %%P in (default black gray lightgray white red orange yellow lime green teal
 )
 if defined %~1 for /f %%N in ('echo !%~1!') do set %~1=%%N
 if "%~1"=="bg" if defined bg set /a bg=!bg!+10
+goto:eof
+
+:autoColor
+if "%~1"=="fg" set /a other=%bg%-10
+if "%~1"=="bg" set other=%fg%
+set %~1=%c_black%
+for %%C in (gray black blue purple red pink magenta) do (
+	if /I "!other!"=="!c_%%C!" set %~1=%c_white%
+)
 goto:eof
 
 :parseRGB
