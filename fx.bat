@@ -30,6 +30,7 @@ set c_magenta=95
 set c_pink=91
 set c_RGB=38
 
+if "%~1"=="/?" goto help
 goto parseArgs
 
 :help
@@ -69,8 +70,6 @@ for %%A in (%allArgs%) do (
 		@REM If not flag
 		if defined text goto argError %%A
 		set "text=%%~A"
-	) else if /I "!arg!"=="/?" (
-		goto help
 	) else if /I "!arg!"=="/H" (
 		goto help
 	) else if /I "!arg!"=="/R" (
