@@ -34,7 +34,6 @@ if "%~1"=="/?" goto help
 goto parseArgs
 
 :help
-@REM echo FX [text] [/R] [/U] [/I] [/FG color] [/BG color]
 echo FX [text] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]
 echo Outputs text with given attributes or sets attributes globally if no text given.
 echo    /R	Removes all text effects and sets default colors.
@@ -42,12 +41,12 @@ echo    /U	Underlining.
 echo    /I	Inverted colors.
 echo    /FG	Sets foreground color (see below).
 echo    /BG	Sets background color (see below).
-echo	/N	End text with new line.
+echo    /N	End text with new line.
 echo.
 echo Colors:
-echo    default	Uses default command prompt color.
-echo    auto		Picks between black or white based on other color.
-echo    (r,g,b)	Pick color by RGB value, range from 0 to 255. (WIP)
+echo    default   Uses default command prompt color.
+echo    auto      Picks between black or white based on other color.
+echo    R:G:B     Pick color by RGB value, range from 0 to 255.
 
 for %%C in (white lightgray gray black blue lightblue cyan teal green lime yellow orange red pink magenta purple) do (
 	call %0 "   "
@@ -111,8 +110,9 @@ if "%col%"=="auto" (
 	goto:eof
 )
 
-if "%col:~0,1%"=="(" (
-	call:parseRGB %~1 %~2
+@REM Test for number
+if /I "0" LEQ "%col:~0,1%" if /I "%col:~0,1%" LEQ "9" (
+	call:parseRGB "%~1" "%~2"
 	goto:eof
 )
 
@@ -133,7 +133,10 @@ for %%C in (gray black blue purple red pink magenta) do (
 goto:eof
 
 :parseRGB
-@REM TODO
+set col=%~2
+set %~1=38
+if "%~1"=="bg" set /a bg=!bg!+10
+set %~1=!%~1!;2;!col::=;!
 goto:eof
 
 :argError
