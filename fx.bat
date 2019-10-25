@@ -50,7 +50,7 @@ echo    auto		Picks between black or white based on other color.
 echo    (r,g,b)	Pick color by RGB value, range from 0 to 255. (WIP)
 
 for %%C in (white lightgray gray black blue lightblue cyan teal green lime yellow orange red pink magenta purple) do (
-	call putstr "   "
+	call %0 "   "
 	call %0 %%C /bg:%%C /fg:auto /n
 )
 goto:eof

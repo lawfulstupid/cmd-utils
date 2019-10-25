@@ -1,1 +1,1 @@
-@echo | set /p dummy=7%*
+@for /f %%S in ("%*") do @echo | set /p dummy=7%%S
