@@ -1,5 +1,9 @@
 @echo off
 
+@REM TODO:
+@REM  - Auto color w/ RGB
+@REM  - Global color store for proper reset
+
 @REM To use exclamation marks, quote the string.
 @REM No idea why that's necessary.
 set allArgs=%*
@@ -34,23 +38,37 @@ if "%~1"=="/?" goto help
 goto parseArgs
 
 :help
-echo FX [text] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]
+echo FX ["text"] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]
 echo Outputs text with given attributes or sets attributes globally if no text given.
-echo    /R	Removes all text effects and sets default colors.
-echo    /U	Underlining.
-echo    /I	Inverted colors.
-echo    /FG	Sets foreground color (see below).
-echo    /BG	Sets background color (see below).
-echo    /N	End text with new line.
+echo    text  Text to display. Recommended that you use double quotes.
+echo    /R	  Removes all text effects and sets default colors.
+echo    /U	  Underlining.
+echo    /I	  Inverted colors.
+echo    /FG	  Sets foreground color (see below).
+echo    /BG	  Sets background color (see below).
+echo    /N	  End text with new line.
 echo.
 echo Colors:
 echo    default   Uses default command prompt color.
 echo    auto      Picks between black or white based on other color.
 echo    R:G:B     Pick color by RGB value, range from 0 to 255.
 
-for %%C in (white lightgray gray black blue lightblue cyan teal green lime yellow orange red pink magenta purple) do (
-	call %0 "   "
-	call %0 %%C /bg:%%C /fg:auto /n
+call %0 "  "
+for %%C in (white lightgray gray black) do (
+	call %0 " "
+	call %0 %%C /bg:%%C /fg:auto
+)
+echo.
+call %0 "  "
+for %%C in (blue lightblue cyan teal green lime) do (
+	call %0 " "
+	call %0 %%C /bg:%%C /fg:auto
+)
+echo.
+call %0 "  "
+for %%C in (yellow orange red pink magenta purple) do (
+	call %0 " "
+	call %0 %%C /bg:%%C /fg:auto
 )
 goto:eof
 
@@ -119,14 +137,17 @@ if /I "0" LEQ "%col:~0,1%" if /I "%col:~0,1%" LEQ "9" (
 for %%P in (default black gray lightgray white red orange yellow lime green teal cyan lightblue blue purple magenta pink) do (
 	if /I "%col%"=="%%P" set %~1=!c_%%P!
 )
-if defined %~1 for /f %%N in ('echo !%~1!') do set %~1=%%N
-if "%~1"=="bg" if defined bg set /a bg=!bg!+10
+if defined %~1 (
+	for /f %%N in ('echo !%~1!') do set %~1=%%N
+	if "%~1"=="bg" set /a bg=!bg!+10
+)
 goto:eof
 
 :autoColor
-if "%~1"=="bg" set other=%fg%
+if "%~1"=="bg" set /a other=%fg%
 if "%~1"=="fg" set /a other=%bg%-10
 set %~1=%c_black%
+@REM TODO: detect if %other% is RGB
 for %%C in (gray black blue purple red pink magenta) do (
 	if /I "!other!"=="!c_%%C!" set %~1=%c_white%
 )
@@ -135,8 +156,8 @@ goto:eof
 
 :parseRGB
 set col=%~2
-set %~1=38
-if "%~1"=="bg" set /a bg=!bg!+10
+if "%~1"=="fg" set fg=38
+if "%~1"=="bg" set bg=48
 set %~1=!%~1!;2;!col::=;!
 goto:eof
 
