@@ -1,1 +1,1 @@
-@for %%S in (%*) do @echo | set /p dummy=7%%~S
+@echo | set /p dummy=7%*
