@@ -124,12 +124,13 @@ if "%~1"=="bg" if defined bg set /a bg=!bg!+10
 goto:eof
 
 :autoColor
-if "%~1"=="fg" set /a other=%bg%-10
 if "%~1"=="bg" set other=%fg%
+if "%~1"=="fg" set /a other=%bg%-10
 set %~1=%c_black%
 for %%C in (gray black blue purple red pink magenta) do (
 	if /I "!other!"=="!c_%%C!" set %~1=%c_white%
 )
+if "%~1"=="bg" set /a bg=!bg!+10
 goto:eof
 
 :parseRGB
