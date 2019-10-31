@@ -2,7 +2,6 @@
 
 @REM TODO:
 @REM Global color store for proper reset
-@REM Fix argError
 
 @REM To use exclamation marks, quote the string.
 @REM No idea why that's necessary.
@@ -97,14 +96,21 @@ for %%A in (%allArgs%) do (
 		set invert=%fx_invert%
 	) else if /I "!arg:~,3!"=="/FG" (
 		call:parseColor fg !arg:~4!
-		if not defined fg goto argError %%A
+		if not defined fg (
+			call:argError %%A
+			exit /b 1
+		)
 	) else if /I "!arg:~,3!"=="/BG" (
 		call:parseColor bg !arg:~4!
-		if not defined bg goto argError %%A
+		if not defined bg (
+			call:argError %%A
+			exit /b 1
+		)
 	) else if /I "!arg!"=="/N" (
 		set newline=1
 	) else (
-		goto argError %%A
+		call:argError %%A
+		exit /b 1
 	)
 )
 
@@ -163,4 +169,5 @@ goto:eof
 
 :argError
 echo ERROR: Argument '%~1' not recognised!
-exit /b 1
+@REM Need to manually exit
+goto:eof
