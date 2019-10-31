@@ -8,5 +8,12 @@ set "hsdir=%USERPROFILE%\hs"
 set "ghc=%STACK_ROOT%\programs\x86_64-windows\ghc-8.6.5\bin\ghc.exe"
 
 title GHCi
+set "olddir=%cd%"
 cd "%hsdir%"
-"%ghc%" --interactive %*
+
+@REM One of these
+@REM "%ghc%" --interactive %*
+@REM start /b /wait stack repl
+stack ghci
+
+cd "%olddir%"
