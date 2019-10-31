@@ -25,7 +25,7 @@ set c_orange=33
 set c_yellow=93
 set c_lime=92
 set c_green=32
-set c_teal=96
+set c_aqua=96
 set c_cyan=36
 set c_lightblue=94
 set c_blue=34
@@ -60,7 +60,7 @@ for %%C in (white lightgray gray black) do (
 )
 echo.
 call %0 "  "
-for %%C in (blue lightblue cyan teal green lime) do (
+for %%C in (blue lightblue cyan aqua green lime) do (
 	call %0 " "
 	call %0 %%C /bg:%%C /fg:auto
 )
@@ -70,6 +70,7 @@ for %%C in (yellow orange red pink magenta purple) do (
 	call %0 " "
 	call %0 %%C /bg:%%C /fg:auto
 )
+echo.
 goto:eof
 
 :parseArgs
@@ -134,7 +135,7 @@ if /I "0" LEQ "%col:~0,1%" if /I "%col:~0,1%" LEQ "9" (
 	goto:eof
 )
 
-for %%P in (default black gray lightgray white red orange yellow lime green teal cyan lightblue blue purple magenta pink) do (
+for %%P in (default black gray lightgray white red orange yellow lime green aqua cyan lightblue blue purple magenta pink) do (
 	if /I "%col%"=="%%P" set %~1=!c_%%P!
 )
 if defined %~1 (
