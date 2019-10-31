@@ -2,7 +2,7 @@
 
 @REM TODO:
 @REM Global color store for proper reset
-@REM Enforce quoted strings
+@REM Fix argError
 
 @REM To use exclamation marks, quote the string.
 @REM No idea why that's necessary.
@@ -84,10 +84,9 @@ set newline=
 
 for %%A in (%allArgs%) do (
 	set "arg=%%~A"
-	if not "!arg:~0,1!"=="/" (
-		@REM If not flag
-		if defined text goto argError %%A
-		set "text=%%~A"
+	if not %%A==%%~A (
+		@REM If quoted
+		set "text=!text!%%~A"
 	) else if /I "!arg!"=="/H" (
 		goto help
 	) else if /I "!arg!"=="/R" (
