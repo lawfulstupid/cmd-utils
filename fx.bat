@@ -1,8 +1,8 @@
 @echo off
 
 @REM TODO:
-@REM  - Auto color w/ RGB
-@REM  - Global color store for proper reset
+@REM Global color store for proper reset
+@REM Enforce quoted strings
 
 @REM To use exclamation marks, quote the string.
 @REM No idea why that's necessary.
