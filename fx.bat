@@ -5,8 +5,6 @@
 
 if not defined FX_LAST (
 	set FX_LAST=[0m
-) else (
-	echo FX_LAST=%FX_LAST%
 )
 
 @REM To use exclamation marks, quote the string.
@@ -45,7 +43,7 @@ goto:eof
 :help
 echo FX ["text"] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]
 echo Outputs text with given attributes or sets attributes globally if no text given.
-echo    text  Text to display. Recommended that you use double quotes.
+echo    text  Text to display. Must be double-quoted.
 echo    /R	  Removes all text effects and sets default colors.
 echo    /U	  Underlining.
 echo    /I	  Inverted colors.
@@ -61,19 +59,19 @@ echo    R:G:B     Pick color by RGB value, range from 0 to 255.
 call %0 "  "
 for %%C in (white lightgray gray black) do (
 	call %0 " "
-	call %0 %%C /bg:%%C /fg:auto
+	call %0 "%%C" /bg:%%C /fg:auto
 )
 echo.
 call %0 "  "
 for %%C in (blue lightblue cyan aqua green lime) do (
 	call %0 " "
-	call %0 %%C /bg:%%C /fg:auto
+	call %0 "%%C" /bg:%%C /fg:auto
 )
 echo.
 call %0 "  "
 for %%C in (yellow orange red pink magenta purple) do (
 	call %0 " "
-	call %0 %%C /bg:%%C /fg:auto
+	call %0 "%%C" /bg:%%C /fg:auto
 )
 echo.
 goto:eof
