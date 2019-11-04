@@ -3,12 +3,16 @@
 @REM TODO:
 @REM Global color store for proper reset
 
+if not defined FX_LAST (
+	set FX_LAST=[0m
+) else (
+	echo FX_LAST=%FX_LAST%
+)
+
 @REM To use exclamation marks, quote the string.
 @REM No idea why that's necessary.
 set allArgs=%*
 set allArgs=%allArgs:!=^^^!%
-
-setlocal EnableDelayedExpansion
 
 set fx_reset=0
 set fx_underline=4
@@ -34,7 +38,9 @@ set c_pink=91
 set c_RGB=38
 
 if "%~1"=="/?" goto help
-goto parseArgs
+
+call:parseArgs %*
+goto:eof
 
 :help
 echo FX ["text"] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]
@@ -73,6 +79,7 @@ echo.
 goto:eof
 
 :parseArgs
+setlocal EnableDelayedExpansion
 set reset=
 set text=
 set fg=
@@ -114,16 +121,23 @@ for %%A in (%allArgs%) do (
 	)
 )
 
+set FX_CURR=
 for %%V in (reset fg bg underline invert) do (
 	if defined %%V (
-		call putstr [!%%V!m
+		set FX_CURR=!FX_CURR![!%%V!m
 	)
 )
-@REM Can't call putstr because of exclamation marks
-@echo | set /p dummy=7!text!
-if defined text call putstr [0m
-if defined newline echo;
+call putstr !FX_CURR!
+
+if defined text (
+	@REM Can't call putstr because of exclamation marks
+	@echo | set /p dummy=7!text!
+	call putstr %FX_LAST%
+	if defined newline echo;
+)
+setlocal DisableDelayedExpansion
 goto:eof
+
 
 @REM :parseColor (FG | BG) COLOR
 :parseColor
