@@ -41,7 +41,7 @@ call:parseArgs %*
 goto:eof
 
 :help
-echo FX ["text"] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]
+call %~0 "FX ["text"] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]" /fg:cyan /n
 echo Outputs text with given attributes or sets attributes globally if no text given.
 echo    text  Text to display. Must be double-quoted.
 echo    /R	  Removes all text effects and sets default colors.

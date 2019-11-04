@@ -29,7 +29,7 @@ shift
 goto parseflags
 
 :help
-echo Move all files of a directory tree to a folder.
+call fx "Move all files of a directory tree to a folder." /fg:aqua
 echo.
 echo FLATTEN [/F] [/V] [sourcepath]
 echo FLATTEN [/F] [/V] sourcepath [destination]
