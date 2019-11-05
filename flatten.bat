@@ -45,7 +45,7 @@ set "dirs= "
 if not defined src set "src=%cd%"
 if not defined dst set "dst=%cd%"
 
-setlocal enabledelayedexpansion
+setlocal EnableDelayedExpansion
 for /r "%src%" %%d in (.) do (
 	set dirs="%%~d" !dirs!
 	if defined flag_v echo %%~d
@@ -55,4 +55,5 @@ for /r "%src%" %%d in (.) do (
 for %%d in (%dirs%) do (
 	rmdir "%%~d" >nul 2>&1
 )
-goto :eof
+endlocal
+goto:eof
