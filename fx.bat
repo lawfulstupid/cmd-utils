@@ -1,8 +1,5 @@
 @echo off
 
-@REM TODO:
-@REM Global color store for proper reset
-
 if not defined FX_LAST (
 	set FX_LAST=[0m
 )
@@ -133,7 +130,7 @@ if defined text (
 	call putstr %FX_LAST%
 	if defined newline echo;
 )
-setlocal DisableDelayedExpansion
+endlocal & if not defined text set FX_LAST=%FX_CURR%
 goto:eof
 
 
