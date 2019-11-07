@@ -77,6 +77,7 @@ goto:eof
 setlocal EnableDelayedExpansion
 set reset=
 set text=
+set hasText=
 set fg=
 set bg=
 set underline=
@@ -87,6 +88,7 @@ for %%A in (%allArgs%) do (
 	set "arg=%%~A"
 	if not %%A==%%~A (
 		@REM If quoted
+		set hasText=1
 		set "text=!text!%%~A"
 	) else if /I "!arg!"=="/H" (
 		goto help
@@ -124,7 +126,7 @@ for %%V in (reset fg bg underline invert) do (
 )
 call putstr !FX_CURR!
 
-if defined text (
+if defined hasText (
 	@REM Can't call putstr because of exclamation marks
 	@echo | set /p dummy=7!text!
 	call putstr %FX_LAST%
