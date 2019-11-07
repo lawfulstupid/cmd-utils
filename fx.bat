@@ -128,18 +128,23 @@ for %%V in (reset fg bg underline invert) do (
 @echo | set /p dummy=!FX_CURR!
 
 @REM Check if stdin has data
-if not defined hasText (
-	timeout 1 >nul 2>&1
-	if errorlevel 1 set hasText=1
+set piped=
+timeout 0 >nul 2>&1
+if errorlevel 1 (
+	set hasText=1
+	set piped=1
 )
 
 if defined hasText (
-	if defined text (
-		@echo | set /p dummy=7!text!
-	) else (
-		@REM Write from stdin
+	if defined piped (
+		@REM Write from stdin, removing newlines
 		for /f "tokens=*" %%L in ('more') do @echo | set /p dummy=%%L
 	)
+
+	if defined text (
+		@echo | set /p dummy=7!text!
+	)
+	
 	@echo | set /p dummy=%FX_LAST%
 	if defined newline echo;
 	set FX_CURR=%FX_LAST%
