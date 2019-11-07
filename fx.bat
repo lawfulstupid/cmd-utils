@@ -125,7 +125,7 @@ for %%V in (reset fg bg underline invert) do (
 		set FX_CURR=!FX_CURR![!%%V!m
 	)
 )
-call putstr !FX_CURR!
+@echo | set /p dummy=!FX_CURR!
 
 @REM Check if stdin has data
 if not defined hasText (
@@ -135,13 +135,12 @@ if not defined hasText (
 
 if defined hasText (
 	if defined text (
-		@REM Can't call putstr because of exclamation marks
 		@echo | set /p dummy=7!text!
 	) else (
 		@REM Write from stdin
 		for /f "tokens=*" %%L in ('more') do @echo | set /p dummy=%%L
 	)
-	call putstr %FX_LAST%
+	@echo | set /p dummy=%FX_LAST%
 	if defined newline echo;
 	set FX_CURR=%FX_LAST%
 )
