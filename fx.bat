@@ -129,8 +129,9 @@ if defined text (
 	@echo | set /p dummy=7!text!
 	call putstr %FX_LAST%
 	if defined newline echo;
+	set FX_CURR=%FX_LAST%
 )
-endlocal & if not defined text set FX_LAST=%FX_CURR%
+endlocal & set FX_LAST=%FX_CURR%
 goto:eof
 
 
