@@ -25,6 +25,7 @@ for /l %%I in (0,1,10) do @(
 )
 setlocal DisableDelayedExpansion
 
+@REM Shortcuts
 doskey x=exit
 doskey q=exit
 doskey :q=exit
@@ -33,5 +34,9 @@ doskey edit="C:\Program Files\Notepad++\notepad++.exe" $*
 doskey ps=powershell $*
 doskey brb=shutdown /r /t 0
 doskey sda=shutdown /a
+doskey la=ls -a $*
+doskey ll=ls -l -h $*
 
+@REM Typos
+doskey gti=git $*
 )
