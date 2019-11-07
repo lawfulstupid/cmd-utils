@@ -1,0 +1,12 @@
+How to use switch-case statements in batch files:
+
+set SWITCH=$TARGET
+call CASE $TEST_CASE_1 && $COMMAND_1
+call CASE $TEST_CASE_2 /I && $COMMAND_2
+call DEFAULT && $COMMAND_3
+
+1) Set the SWITCH variable to the target value.
+2) Call CASE for each test case and conditionally chain into desired command.
+   - CASE uses case-sensitive comparison unless /I is specified after the test value.
+3) Optionally call DEFAULT and conditionally chain to final command.
+4) Any calls to CASE or DEFAULT following a DEFAULT will fail.
