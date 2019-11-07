@@ -40,6 +40,7 @@ goto:eof
 :help
 call %~0 "FX ["text"] [/R] [/FG:color] [/BG:color] [/U] [/I] [/N]" /fg:cyan /n
 echo Outputs text with given attributes or sets attributes globally if no text given.
+echo Text can also be supplied by stdin (newlines will be removed).
 echo    text  Text to display. Must be double-quoted.
 echo    /R	  Removes all text effects and sets default colors.
 echo    /U	  Underlining.
@@ -126,9 +127,20 @@ for %%V in (reset fg bg underline invert) do (
 )
 call putstr !FX_CURR!
 
+@REM Check if stdin has data
+if not defined hasText (
+	timeout 1 >nul 2>&1
+	if errorlevel 1 set hasText=1
+)
+
 if defined hasText (
-	@REM Can't call putstr because of exclamation marks
-	@echo | set /p dummy=7!text!
+	if defined text (
+		@REM Can't call putstr because of exclamation marks
+		@echo | set /p dummy=7!text!
+	) else (
+		@REM Write from stdin
+		for /f "tokens=*" %%L in ('more') do @echo | set /p dummy=%%L
+	)
 	call putstr %FX_LAST%
 	if defined newline echo;
 	set FX_CURR=%FX_LAST%
