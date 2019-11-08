@@ -1,10 +1,11 @@
 @echo off
-
+setlocal
 verify >nul
-dir %windir%\system32\config\systemprofile >nul 2>nul
+dir %windir%\system32\config\systemprofile >nul 2>&1
 if errorlevel 1 (
-	echo User
+	set role=user
 ) else (
-	echo Admin
+	set role=admin
 )
-pause
+if "%~1" == "" echo %role%
+endlocal & if not "%~1" == "" set %~1=%role%
