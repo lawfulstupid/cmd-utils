@@ -1,15 +1,14 @@
 @echo off
 setlocal EnableDelayedExpansion
 	set casing=
-	set options=%*
-	if /I "%~1"=="/I" (
-		set casing=/I
-		for /f "tokens=1,*" %%A in ("%*") do set options=%%B
-	)
-	
+	if /I "/I"=="%~1" shift & set casing=/I
 	set found=0
-	for %%A in (!options!) do (
-		if %casing% "%switch%"=="%%~A" set found=1
-	)
+	
+	:loop
+	if "%~1"=="" goto endloop
+	if %casing% "%switch%"=="%~1" set found=1
+	shift
+	goto loop
+	:endloop
 endlocal & if /I %found% EQU 1 default
 exit /b 1
