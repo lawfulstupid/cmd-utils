@@ -17,10 +17,10 @@
 
 @REM "ups" i.e. '..' -> 'cd ..'
 @setlocal EnableDelayedExpansion
-@for /l %%I in (0,1,10) do (
-	@doskey !macro!=!command!
-	@set macro=!macro!.
-	@set command=!command!\..
+@for /l %%I in (0,1,10) do @(
+	doskey !macro!=!command!
+	set macro=!macro!.
+	set command=!command!\..
 )
 @endlocal
 
