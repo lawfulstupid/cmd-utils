@@ -92,6 +92,7 @@ setlocal EnableDelayedExpansion
 	for %%C in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
 		set head=!head:%%C=%%C!
 		set tail=!tail: %%C= %%C!
+		set tail=!tail:	%%C=	%%C!
 	)
 endlocal & set result=%head%%tail%
 goto:eof
