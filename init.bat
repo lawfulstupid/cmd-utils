@@ -36,6 +36,7 @@ doskey brb=shutdown /r /t 0
 doskey sda=shutdown /a
 doskey la=ls -a $*
 doskey ll=ls -l -h $*
+doskey eval=ghc -ignore-dot-ghci -e $*
 
 @REM Typos
 doskey gti=git $*
