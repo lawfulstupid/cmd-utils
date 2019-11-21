@@ -123,7 +123,7 @@ setlocal EnableDelayedExpansion
 	for /L %%N in (0,1,8192) do (
 		if "!str!"=="" goto break_idx
 		for %%S in (!opts!) do (
-			if "!str:~0,1!"=="%%~S" (
+			if /I "!str:~0,1!"=="%%~S" (
 				set idx=%%N
 				goto break_idx
 			)
