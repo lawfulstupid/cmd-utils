@@ -12,7 +12,7 @@ setlocal EnableDelayedExpansion
 	call fx /fg:aqua
 	echo DROP [^<N^>] ^<argvar^>
 	call fx /r
-	echo Removes first [N] list item(s) from a variable.
+	echo Removes first [N] list item(s) from a variable. Only works from within a delayed-expansion local scope.
 	echo;
 	echo Example usage:
 	echo;   set var=foo bar baz maz
