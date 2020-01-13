@@ -1,1 +1,1 @@
-@echo 
+@echo | set /p dummy=
