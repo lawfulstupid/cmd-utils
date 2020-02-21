@@ -37,6 +37,7 @@ doskey sda=shutdown /a
 doskey la=ls -a $*
 doskey ll=ls -l -h $*
 doskey eval=ghc -ignore-dot-ghci -e "$*"
+doskey ghc=ghc -outputdir=bin $*
 
 @REM Typos
 doskey gti=git $*
