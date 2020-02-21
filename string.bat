@@ -37,7 +37,7 @@ goto:eof
 :help
 setlocal EnableDelayedExpansion
 	call fx /fg:aqua
-	echo STRING [/AS ^<var^>] "^<string^>" ^<operation^>
+	echo STRING [/AS ^<var^>] "<string>" ^<operation^>
 	call fx /r
 	echo Performs a number of string manipulation operations.
 	echo;
