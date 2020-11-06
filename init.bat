@@ -34,11 +34,13 @@ doskey edit="C:\Program Files\Notepad++\notepad++.exe" $*
 doskey ps=powershell $*
 doskey brb=shutdown /r /t 0
 doskey sda=shutdown /a
-doskey la=ls -a $*
-doskey ll=ls -l -h $*
 doskey eval=ghc -ignore-dot-ghci -e "$*"
 doskey ghc=ghc -outputdir=bin $*
 doskey diff=git difftool -y $*
+
+@REM The following require npm package 'windows-ls' to be installed
+doskey la=ls -a $*
+doskey ll=ls -l -h $*
 
 @REM Typos
 doskey gti=git $*
