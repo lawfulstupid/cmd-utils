@@ -1,1 +1,1 @@
-@rundll32 user32.dll, LockWorkStationRL
+@rundll32 user32.dll, LockWorkStation
