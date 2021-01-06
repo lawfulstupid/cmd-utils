@@ -32,8 +32,6 @@ doskey :q=exit
 doskey home=cd %USERPROFILE%
 doskey edit="C:\Program Files\Notepad++\notepad++.exe" $*
 doskey ps=powershell $*
-doskey brb=shutdown /r /t 0
-doskey sda=shutdown /a
 doskey eval=ghc -ignore-dot-ghci -e "$*"
 doskey ghc=ghc -outputdir=bin $*
 doskey diff=git difftool -y $*
