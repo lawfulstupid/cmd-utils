@@ -27,6 +27,7 @@ setlocal EnableDelayedExpansion
 	call case /I title titlecase	&& call :titlecase "%~1"
 	call case /I length len			&& call :length "%~1"
 	call case /I index				&& call :index "%~1" !args3!
+	call case /I replace			&& call :replace "%~1" "%~3" "%~4"
 	call default					&& call :help
 	
 	if not defined outvar echo !result!
@@ -42,14 +43,16 @@ setlocal EnableDelayedExpansion
 	echo Performs a number of string manipulation operations.
 	echo;
 	echo Options:
-	echo;   /AS ^<var^>		Writes the result to given variable.
+	echo;   /AS ^<var^>			Writes the result to given variable.
 	echo;
 	echo Operations:
-	echo;   upper		Converts the string to UPPER CASE.
-	echo;   lower		Converts the string to lower case.
-	echo;   title		Converts the string to Title Case.
-	echo;   length		Computes string length.
-	echo;   index ^<chars^>	Finds index of first instance of one of the given characters.
+	echo;   upper			Converts the string to UPPER CASE.
+	echo;   lower			Converts the string to lower case.
+	echo;   title			Converts the string to Title Case.
+	echo;   length			Computes string length.
+	echo;   index ^<chars^>		Finds index of first instance of one of the given characters.
+	echo;   replace ^<find^> ^<repl^>	Performs a standard find-and-replace as per %%var:find=repl%%.
+	echo;				Use @@@ to indicate a double-quote mark (").
 endlocal
 goto:eof
 
@@ -132,4 +135,13 @@ setlocal EnableDelayedExpansion
 	)
 	:break_idx
 endlocal & set result=%idx%
+goto:eof
+
+
+:replace
+setlocal EnableDelayedExpansion
+	set "result=%~1"
+	set "result=!result:%~2=%~3!"
+	set "result=!result:@@@="!"
+endlocal & set result=%result%
 goto:eof
