@@ -1,4 +1,3 @@
-
 @REM DO NOT ECHO IN THIS FILE
 
 @REM The following registry key needs to point to this file:
@@ -48,4 +47,3 @@ doskey gti=git $*
 @REM doskey evaltest=string "$*" replace ";" "@@@ -e @@@"
 @REM doskey evaltest=for /f "usebackq tokens=*" %C in (`string "$*" replace ";" "@@@ -e @@@"`) do echo %C
 )
-

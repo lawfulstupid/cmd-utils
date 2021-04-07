@@ -14,11 +14,6 @@ CapsLock::return
 CapsLock & Tab::Tab
 
 
-; Silence F1
-F1::Return
-CapsLock & F1::F1
-
-
 ; Quick Command Prompt
 CapsLock & T::
 	if (GetKeyState("Shift", "P")) {		; If shift down
