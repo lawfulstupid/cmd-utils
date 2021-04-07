@@ -44,4 +44,8 @@ doskey ll=ls -l -h $*
 
 @REM Typos
 doskey gti=git $*
+
+@REM doskey evaltest=string "$*" replace ";" "@@@ -e @@@"
+@REM doskey evaltest=for /f "usebackq tokens=*" %C in (`string "$*" replace ";" "@@@ -e @@@"`) do echo %C
 )
+
