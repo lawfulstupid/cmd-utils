@@ -6,7 +6,7 @@ echo Shutting down . . .
 timeout /T %time% /nobreak
 
 if %errorlevel% == 0 (
-   echo shutdown /s /t 0
+   shutdown /s /t 0
 ) else (
    echo Shutdown aborted.
    call delay 1
