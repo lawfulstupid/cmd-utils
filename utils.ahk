@@ -68,7 +68,7 @@ CapsLock & WheelDown::Volume_Down
 CapsLock & MButton::Media_Play_Pause
 CapsLock & Volume_Down::Media_Prev
 CapsLock & Volume_Up::Media_Next
-
+Pause::Media_Play_Pause
 
 ; Silence PgUp/PgDn because of annoying key placement on my laptop
 PgUp::return
