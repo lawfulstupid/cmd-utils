@@ -35,6 +35,7 @@ doskey sda=shutdown /a
 doskey eval=ghc -ignore-dot-ghci -e "$*"
 doskey ghc=ghc -outputdir=bin $*
 doskey diff=git difftool -y $*
+doskey tail=ps type -wait $*
 
 @REM The following require npm package 'windows-ls' to be installed
 doskey la=ls -a $*
