@@ -26,6 +26,14 @@ CapsLock & T::
 return
 
 
+; Sleep
+CapsLock & L::
+	SendInput, #x
+	SendInput, u
+	SendInput, s
+return
+
+
 ; Quick GHCi
 CapsLock & H::
 	Run, hs.bat,,, pid
