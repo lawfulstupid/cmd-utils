@@ -89,3 +89,10 @@ SwitchTo(pid) {
 	WinWait, ahk_pid pid
 	WinActivate, ahk_pid pid
 }
+
+
+; Enter a unicode character from it's code
+CapsLock & U::
+	Input, code, L4
+	SendInput {U+%code%}
+Return
