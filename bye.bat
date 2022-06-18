@@ -1,6 +1,10 @@
 @echo off
 
-set time=5
+if not "%~1" == "" (
+	set time=%~1
+) else (
+	set time=5
+)
 
 echo Shutting down . . .
 timeout /T %time% /nobreak
