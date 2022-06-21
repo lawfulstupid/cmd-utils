@@ -90,9 +90,36 @@ SwitchTo(pid) {
 	WinActivate, ahk_pid pid
 }
 
+; Returns selected text or selects a word and returns that
+GetWord() {
+	ClipboardOriginal := ClipboardAll
+	clipboard := ""
+	SendInput, ^c
+	ClipWait, 1
+	if (clipboard == "") {
+		SendInput, {Right}^{Left}^+{Right}
+		SendInput, ^c
+		ClipWait, 1
+	}
+	word := clipboard
+	clipboard := ClipboardOriginal
+	return word
+}
+
+^p::
+	word := GetWord()
+	MsgBox, %word%
+Return
 
 ; Enter a unicode character from it's code
 CapsLock & U::
-	Input, code, L4
-	SendInput {U+%code%}
+	Send, {Insert}
+	Input, code,, {Enter}
+	Send, {Insert}
+	if (SubStr(code, 1, 1) == "x") { ; if hex
+		code := SubStr(code, 2)				; remove leading x
+	} else {									; if decimal
+		code := Format("{:X}", code)		; convert to hex
+	}
+	SendInput, {U+%code%}
 Return
