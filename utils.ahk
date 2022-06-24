@@ -28,9 +28,9 @@ return
 
 ; Sleep
 CapsLock & L::
-	SendInput, #x
-	SendInput, u
-	SendInput, s
+	Send, #x
+	Send, u
+	Send, s
 return
 
 
