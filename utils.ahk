@@ -4,6 +4,10 @@
 SendMode Input
 
 
+; Fix for weird issue on my PC
+NumpadDot::.
+
+
 ; Remap PrintScreen -> Snip
 PrintScreen::#+S
 
