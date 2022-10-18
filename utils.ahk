@@ -8,6 +8,22 @@ SendMode Input
 NumpadDot::.
 
 
+CapsLock & C::
+	PlaintextClipboardEnabled := !PlaintextClipboardEnabled
+	if (PlaintextClipboardEnabled) {
+		MsgBox, Plaintext Clipboard Enabled
+	} else {
+		MsgBox, Plaintext Clipboard Disabled
+	}
+return
+
+OnClipboardChange:
+	if (PlaintextClipboardEnabled) {
+		Clipboard := Clipboard ; assigns text part of clipboard to clipboard
+	}
+return
+
+
 ; Allows use of CapsLock as modifier
 ; Press Shift + CapsLock to use old CapsLock functionality
 CapsLock::return
