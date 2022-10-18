@@ -8,10 +8,6 @@ SendMode Input
 NumpadDot::.
 
 
-; Remap PrintScreen -> Snip
-PrintScreen::#+S
-
-
 ; Allows use of CapsLock as modifier
 ; Press Shift + CapsLock to use old CapsLock functionality
 CapsLock::return
