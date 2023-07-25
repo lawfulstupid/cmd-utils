@@ -11,6 +11,7 @@ NumpadDot::.
 CapsLock & C::
 	PlaintextClipboardEnabled := !PlaintextClipboardEnabled
 	if (PlaintextClipboardEnabled) {
+		Clipboard := Clipboard ; assigns text part of clipboard to clipboard
 		MsgBox, Plaintext Clipboard Enabled
 	} else {
 		MsgBox, Plaintext Clipboard Disabled
