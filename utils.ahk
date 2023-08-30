@@ -123,11 +123,6 @@ GetWord() {
 	return word
 }
 
-^p::
-	word := GetWord()
-	MsgBox, %word%
-Return
-
 ; Enter a unicode character from it's code
 CapsLock & U::
 	Send, {Insert}
