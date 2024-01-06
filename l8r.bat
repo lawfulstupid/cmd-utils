@@ -1,12 +1,15 @@
 @echo off
 
-set time=5
+if not "%~1" == "" (
+	set time=%~1
+) else (
+	set time=5
+)
 
-echo Hibernating in %time% seconds . . .
-echo Press any key to cancel.
-call delay %time% *
+echo Hibernating . . .
+timeout /T %time% /nobreak
 
-if %errorlevel% == 1 (
+if %errorlevel% == 0 (
    shutdown /h /t 0
 ) else (
    echo Hibernation aborted.
