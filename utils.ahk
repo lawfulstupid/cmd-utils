@@ -128,9 +128,8 @@ CapsLock & U::
 	Send, {Insert}
 	Input, code,, {Enter}
 	Send, {Insert}
-	if (SubStr(code, 1, 1) == "x") { ; if hex
+	if (SubStr(code, 1, 1) == "d") { ; if decimal
 		code := SubStr(code, 2)				; remove leading x
-	} else {									; if decimal
 		code := Format("{:X}", code)		; convert to hex
 	}
 	SendInput, {U+%code%}
