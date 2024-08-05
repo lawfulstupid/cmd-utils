@@ -134,3 +134,8 @@ CapsLock & U::
 	}
 	SendInput, {U+%code%}
 Return
+
+; Insert accent
+CapsLock & `::
+	SendInput, {U+301}
+Return
