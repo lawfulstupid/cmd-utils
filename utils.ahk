@@ -3,10 +3,10 @@
 #MaxHotkeysPerInterval 200
 SendMode Input
 
-
-; Fix for weird issue on my PC
-NumpadDot::.
-
+PlaintextClipboardEnabled := false
+AccumulativeClipboardEnabled := false
+AccumulativeClipboard := ""
+OnClipboardChange("UpdateClipboard")
 
 CapsLock & C::
 	PlaintextClipboardEnabled := !PlaintextClipboardEnabled
@@ -18,11 +18,41 @@ CapsLock & C::
 	}
 return
 
-OnClipboardChange:
+CapsLock & V::
+	AccumulativeClipboardEnabled := !AccumulativeClipboardEnabled
+	if (AccumulativeClipboardEnabled) {
+		global AccumulativeClipboard := ""
+		Msgbox, Accumulative Clipboard Enabled
+	} else {
+		Msgbox, Accumulative Clipboard Disabled
+	}
+return
+
+UpdateClipboard(Type) {
+	global PlaintextClipboardEnabled
+	global AccumulativeClipboardEnabled
+	global AccumulativeClipboard
+
+	if (DllCall("GetClipboardOwner") == A_ScriptHwnd) {
+		return
+	}
+
 	if (PlaintextClipboardEnabled) {
 		Clipboard := Clipboard ; assigns text part of clipboard to clipboard
 	}
-return
+	if (AccumulativeClipboardEnabled) {
+		if (AccumulativeClipboard = "") {
+			AccumulativeClipboard := Clipboard
+		} else {
+			AccumulativeClipboard := AccumulativeClipboard . "`n" . Clipboard
+		}
+		Clipboard := AccumulativeClipboard
+	}
+}
+
+
+; Fix for weird issue on my PC
+NumpadDot::.
 
 
 ; Allows use of CapsLock as modifier
@@ -96,10 +126,10 @@ CapsLock & Volume_Up::Media_Next
 Pause::Media_Play_Pause
 
 ; Silence PgUp/PgDn because of annoying key placement on my laptop
-PgUp::return
-CapsLock & PgUp::PgUp
-PgDn::return
-CapsLock & PgDn::PgDn
+; PgUp::return
+; CapsLock & PgUp::PgUp
+; PgDn::return
+; CapsLock & PgDn::PgDn
 
 
 SwitchTo(pid) {
