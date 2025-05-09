@@ -169,3 +169,14 @@ Return
 CapsLock & '::
 	SendInput, {U+301}
 Return
+
+
+; Open/Close macro recorder
+CapsLock & M::
+	Process, Exist, Macro Recorder.exe
+	if ErrorLevel {
+		Process, Close, %ErrorLevel%
+	} else {
+		Run, "Macro Recorder"
+	}
+Return
